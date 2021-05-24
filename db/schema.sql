@@ -20,7 +20,7 @@ CREATE TABLE employee (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
-    role_id VARCHAR(30) NOT NULL,
+    role_id INT UNSIGNED NOT NULL,
     INDEX role_ind (role_id),
     CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
     manager_id INT UNSIGNED,
@@ -50,12 +50,11 @@ VALUES
 INSERT INTO employee
     (first_name, last_name, role_id, manager_id)
 VALUES
-    ("Nick", "Wiger", 1, 1),
-    ("Mike", "Mitchell", 2, NULL),
+    ("Nick", "Wiger", 1, NULL),
+    ("Mike", "Mitchell", 2, 1),
     ("Griffin", "Newman", 3, NULL),
-    ("Scott", "Aukerman", 4, 2),
-    ("Lauren", "Lapkus", 5, 3),
-    ("Paul", "Thompkins", 6, NULL),
-    ("Jessica", "Mckenna", 7, 4),
-    ("Carl", "Tart", 8, NULL);
-    
+    ("Scott", "Aukerman", 4, 3),
+    ("Lauren", "Lapkus", 5, NULL),
+    ("Paul", "Thompkins", 6, 5),
+    ("Jessica", "Mckenna", 7, NULL),
+    ("Carl", "Tart", 8, 7);

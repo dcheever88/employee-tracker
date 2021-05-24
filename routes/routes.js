@@ -1,9 +1,7 @@
 const express = require("express");
-//can probably remove router
-// const router = express.Router();
+const router = express.Router();
 const db = require("../db/connection");
 const cTable = require("console.table");
-const Connection = require("mysql2/typings/mysql/lib/Connection");
 const inquirer = require("inquirer");
 
 const prompts = {
