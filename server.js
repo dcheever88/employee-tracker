@@ -1,7 +1,5 @@
 const express = require("express");
-// const cTable = require("console.table");
 const db = require("./db/connection");
-// const mysql = require("mysql2");
 const inquirer = require("inquirer");
 require("console.table");
 
@@ -13,25 +11,13 @@ const prompts = {
     addEmployee: "Add an Employee",
     removeEmployee: "Remove an Employee",
     updateRole: "Update Employee Role",
-    // have to add this
-    // updateEmployeeManager: "Update Employee Manager",
+    updateEmployeeManager: "Update Employee Manager",
     viewAllRoles: "View All Roles",
     exit: "Exit"
 };
 
-
 const PORT = process.env.PORT || 3001;
 const app = express();
-
-// not sure about this
-// const routes = require("./routes/routes");
-
-// express middleware
-// app.use(express.urlencoded({ extended: false }));
-// app.use(express.json());
-
-// use routes (note sure about this)
-// app.use("/api", routes);
 
 // default response for any other request (not found)
 app.use((req, res) => {
@@ -87,9 +73,9 @@ function prompt() {
                 case prompts.viewAllRoles:
                     viewAllRoles();
                     break;
-                // case prompts.updateEmployeeManager:
-                //     updateEmployeeManager();
-                //     break;
+                case prompts.updateEmployeeManager:
+                    updateEmployeeManager();
+                    break;
                 case prompts.exit:
                     db.end();
                     break;
@@ -307,6 +293,37 @@ async function updateRole() {
         });
     });
 }
+
+async function updateEmployeeManager() {
+    const employeeId = await inquirer.prompt(askId());
+
+    db.query("SELECT employee.id FROM employee ORDER BY employee.id;", async (err, res) => {
+        if (err) throw err;
+        const { employee } = await inquirer.prompt([
+            {
+                name: "manager",
+                type: "list",
+                choices: () => res.map(res => res.title),
+                message: "Please enter new employee Manager ID"
+            }
+        ]);
+        let managerId;
+        for (const row of res) {
+            if (row.title === employee) {
+                managerId = row.id;
+                continue;
+            }
+        }
+        db.query(`UPDATE employee
+        SET manager_id = ${managerId}
+        WHERE employee.id = ${employeeId.name}`, async (err, res) => {
+            if (err) throw err;
+            console.log("Employee Manager has been updated")
+            prompt();
+        });
+    });
+}
+
 
 function askName() {
     return ([
