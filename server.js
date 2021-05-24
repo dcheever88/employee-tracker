@@ -3,7 +3,7 @@ const db = require("./db/connection");
 const inquirer = require("inquirer");
 require("console.table");
 
-
+// app prompts
 const prompts = {
     viewAllEmployees: "View All Employees",
     viewByDepartment: "View all Employees by Department",
@@ -32,6 +32,7 @@ app.listen(PORT, () => {
     });
 });
 
+// run app
 function prompt() {
     inquirer
         .prompt({
