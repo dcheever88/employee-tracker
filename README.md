@@ -8,7 +8,7 @@ A command-line application for managing a company's employees. Built using node,
 * npm inquirer - installs inquirer for interaction via the command line
 * npm mysql2 - to connect to MySQL database
 
-## Run application
+## Usage
 * node server.js
 
 ## Built With
