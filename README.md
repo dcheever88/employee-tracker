@@ -9,7 +9,8 @@ A command-line application for managing a company's employees. Built using node,
 * npm mysql2 - to connect to MySQL database
 
 ## Usage
-* node server.js
+* In command-line, run node server.js
+* For a walkthrough video on how to use this application, follow this link! https://drive.google.com/file/d/1TdJ6KHImauDp7j8JpGOiyOhXUgMZeoQe/view
 
 ## Built With
 * Javascript
